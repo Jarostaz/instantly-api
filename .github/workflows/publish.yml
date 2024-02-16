@@ -30,7 +30,10 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-            publish: pnpm run build
-
+          publish: npm run release
+          version: npm run version-packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     
       # Add your build and test steps here

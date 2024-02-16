@@ -8,6 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pnpm lint && tsup index.ts --format cjs,esm --dts",
+    "release": "npm run build && changeset publish",
+    "version-packages": "changeset version",
     "lint": "tsc"
   },
   "keywords": [],
