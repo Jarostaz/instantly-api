@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "ignorePatterns": ["build"],
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "linebreak-style": "off",
+    "indent": ["error", 2, {
+      "ignoredNodes": ["TemplateLiteral"]
+    }],
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
+    "no-unused-vars": ["warn"],
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-debugger": "off",
+    "template-curly-spacing" : "off",
+    "@typescript-eslint/ban-ts-comment": "off"
+  },
+  "globals": {
+      "jsdom": true,
+      "JSX": true
+  }
+}
