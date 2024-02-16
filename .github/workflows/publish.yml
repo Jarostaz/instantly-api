@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - "**"
+      - "master"
 
 jobs:
   build:
@@ -25,6 +25,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
 
+      - name: Create pull request or publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+            publish: pnpm run build
 
     
       # Add your build and test steps here
