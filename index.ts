@@ -104,6 +104,59 @@ const getCampaignSummary = async (campaignId: string) => {
 
 };
 
+export type IntantlyLead = {
+  email: string;
+  first_name: string;
+  last_name: string;
+  company_name: string;
+  personalization: string;
+  phone: string;
+  website: string;
+  custom_variables: Record<string, string>;
+};
+
+const addLeadsToCampaign = async (campaignId: string, leads: IntantlyLead[], options: {
+  skipIfInWorkspace?: boolean;
+}) => {
+
+  if(!campaignId) {
+    throw new Error('campaignId is undefined');
+  }
+
+  if(!Array.isArray(leads)) {
+    throw new Error('leads is not an array');
+  }
+
+  if(leads.length === 0) {
+    throw new Error('leads is empty');
+  }
+
+  const API_KEY = getApiKey();
+
+  const raw = JSON.stringify({
+    api_key: API_KEY,
+    campaign_id: campaignId,
+    skip_if_in_workspace: options.skipIfInWorkspace ?? false,
+    leads
+  });
+  
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: raw,
+    redirect: 'follow'
+  } as RequestInit;
+  
+  const res = await fetch('https://api.instantly.ai/api/v1/lead/add', requestOptions)
+    .then(response => response.json())
+    .catch(error => console.log('error', error));
+
+  return res;
+
+};
+
 const instantly = {
   ping,
   campaigns: {
@@ -112,6 +165,9 @@ const instantly = {
     getStatus: getCampaignStatus,
     getAccounts: getCampaignAccounts,
     getSummary: getCampaignSummary
+  },
+  leads: {
+    addToCampaign: addLeadsToCampaign
   }
 };
 

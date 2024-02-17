@@ -1,5 +1,6 @@
 import instantly from './index';
 import dotenv from 'dotenv';
+import type { IntantlyLead } from './index';
 
 // Load .env file wth INSTANTLY_API_KEY
 dotenv.config();
@@ -42,7 +43,7 @@ it('should get campaign status', async () => {
 
   const expected = {
     'campaign_id': campaignId,
-    'status': 'completed',
+    'status': 'paused',
   };
 
   expect(result).toEqual(expected);
@@ -78,4 +79,45 @@ it('should get campaign summary', async () => {
   expect(result.leads_who_replied).toBeGreaterThanOrEqual(0);
   expect(result.bounced).toBeGreaterThanOrEqual(0);
   expect(result.unsubscribed).toBeGreaterThanOrEqual(0);
+});
+
+it('should add campaign leads', async () => {
+  const campaignId = process.env.CAMPAIGN_ID;
+  if(!campaignId) {
+    throw new Error('CAMPAIGN_ID environment variable is undefined');
+  }
+ 
+  const leads: IntantlyLead[] = [
+    {
+      'email': 'test@gmail.com',
+      'first_name': 'John',
+      'last_name': 'Doe',
+      'company_name': 'Doe Inc.',
+      'personalization': 'love your work',
+      'phone': '1234567890',
+      'website': 'https://doe.com',
+      'custom_variables': {
+        'custom1': 'value1',
+        'custom2': 'value2',
+      },
+    },
+  ];
+
+  const result = await instantly.leads.addToCampaign(campaignId as string, leads, {
+    skipIfInWorkspace: true,
+  });
+
+  console.log(result);
+
+  const expected = {
+    status: 'success',
+    total_sent: 1,
+    in_blocklist: 0,
+    already_in_workspace: 1,
+  };
+
+  expect(result).toBeDefined();
+  expect(result.status).toBe(expected.status);
+  expect(result.total_sent).toBe(expected.total_sent);
+  expect(result.already_in_workspace).toBe(expected.already_in_workspace);
 });
