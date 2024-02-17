@@ -104,6 +104,5 @@ const result = await instantly.leads.addToCampaign(campaignId, leads, options);
 Defines the structure for a lead object.
 
 ```javascript
-Copy code
 import type { InstantlyLead } from 'instantly-api';
 ```
