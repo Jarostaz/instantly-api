@@ -1,3 +1,14 @@
+export type InstantlyLead = {
+  email: string;
+  first_name?: string;
+  last_name?: string;
+  company_name?: string;
+  personalization?: string;
+  phone?: string;
+  website?: string;
+  custom_variables?: Record<string, string>;
+};
+
 const getApiKey = () => {
 
   const apiKey = process.env.INSTANTLY_API_KEY;
@@ -102,17 +113,6 @@ const getCampaignSummary = async (campaignId: string) => {
 
   return res;
 
-};
-
-export type InstantlyLead = {
-  email: string;
-  first_name: string;
-  last_name: string;
-  company_name: string;
-  personalization: string;
-  phone: string;
-  website: string;
-  custom_variables: Record<string, string>;
 };
 
 const addLeadsToCampaign = async (campaignId: string, leads: InstantlyLead[], options: {
