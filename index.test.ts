@@ -1,6 +1,6 @@
 import instantly from './index';
 import dotenv from 'dotenv';
-import type { IntantlyLead } from './index';
+import type { InstantlyLead } from './index';
 
 // Load .env file wth INSTANTLY_API_KEY
 dotenv.config();
@@ -87,7 +87,7 @@ it('should add campaign leads', async () => {
     throw new Error('CAMPAIGN_ID environment variable is undefined');
   }
  
-  const leads: IntantlyLead[] = [
+  const leads: InstantlyLead[] = [
     {
       'email': 'test@gmail.com',
       'first_name': 'John',

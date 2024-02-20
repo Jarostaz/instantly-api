@@ -104,7 +104,7 @@ const getCampaignSummary = async (campaignId: string) => {
 
 };
 
-export type IntantlyLead = {
+export type InstantlyLead = {
   email: string;
   first_name: string;
   last_name: string;
@@ -115,7 +115,7 @@ export type IntantlyLead = {
   custom_variables: Record<string, string>;
 };
 
-const addLeadsToCampaign = async (campaignId: string, leads: IntantlyLead[], options: {
+const addLeadsToCampaign = async (campaignId: string, leads: InstantlyLead[], options: {
   skipIfInWorkspace?: boolean;
 }) => {
 
