@@ -28,7 +28,7 @@ it('should get campaign name', async () => {
 
   const expected = {
     'campaign_id': campaignId,
-    'campaign_name': 'SMS for Creators',
+    'campaign_name': 'Test Campaign',
   };
 
   expect(result).toEqual(expected);
@@ -120,4 +120,10 @@ it('should add campaign leads', async () => {
   expect(result.status).toBe(expected.status);
   expect(result.total_sent).toBe(expected.total_sent);
   expect(result.already_in_workspace).toBe(expected.already_in_workspace);
+});
+
+it('should list accounts', async () => {
+  const result = await instantly.accounts.list();
+  expect(result).toBeDefined();
+  expect(result.length).toBeGreaterThan(0);
 });

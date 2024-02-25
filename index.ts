@@ -157,6 +157,22 @@ const addLeadsToCampaign = async (campaignId: string, leads: InstantlyLead[], op
 
 };
 
+const listAccounts = async () => {
+  const requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  } as RequestInit;
+
+  const API_KEY = getApiKey();
+
+  const res = await fetch(`https://api.instantly.ai/api/v1/account/list?api_key=${API_KEY}`, requestOptions)
+    .then(response => response.json())
+    .catch(error => console.log('error', error));
+
+  return res?.accounts;
+
+};
+
 const instantly = {
   ping,
   campaigns: {
@@ -168,6 +184,9 @@ const instantly = {
   },
   leads: {
     addToCampaign: addLeadsToCampaign
+  },
+  accounts: {
+    list: listAccounts
   }
 };
 
